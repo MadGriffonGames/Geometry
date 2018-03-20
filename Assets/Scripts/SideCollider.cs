@@ -9,8 +9,6 @@ public class SideCollider : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.GetComponent<SpriteRenderer>().color);
-        Debug.Log(ColorId);
         if (other.gameObject.GetComponent<SpriteRenderer>().color == ColorId)
         {
             Destroy(other.gameObject);

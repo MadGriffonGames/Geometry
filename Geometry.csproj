@@ -226,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\EasyGameEvent.cs" />
+    <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\HardGameEvent.cs" />
     <Compile Include="Assets\Scripts\IGameEvent.cs" />
     <Compile Include="Assets\Scripts\MediumGameEvent.cs" />
