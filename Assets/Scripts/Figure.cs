@@ -2,19 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectSpinner : MonoBehaviour
+public class Figure : MonoBehaviour
 {
     const int DEGREES = 360;
     const float MULTIPLIER = 6f;
 
     [SerializeField]
     GameObject figure;
+    [SerializeField]
+    SideCollider[] sides;
+    [SerializeField]
+    public Color[] currentColors;
 
     public int edgeCount = 3;
     bool isRotate = false;
     int dir = 0;
     float sum = 0;
     float z;
+
+    private void Awake()
+    {
+        //currentColors = new Color[sides.Length];
+        //for (int i = 0; i < sides.Length; i++)
+        //{
+        //    currentColors[i] = sides[i].ColorId;
+        //}
+    }
 
     private void FixedUpdate()
     {
@@ -37,9 +50,6 @@ public class ObjectSpinner : MonoBehaviour
 
     public void Rotate(int _dir)
     {
-        //Debug.Log(figure.transform.rotation.z);
-        //figure.transform.rotation = Quaternion.Euler(0, 0, figure.transform.rotation.z + (dir * DEGREES / edgeCount));
-        //Debug.Log(figure.transform.rotation.z);
         isRotate = true;
         dir = _dir;
         z = transform.rotation.eulerAngles.z;

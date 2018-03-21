@@ -2,24 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour {
-
-	[SerializeField]
-	GameObject figure;
-
+public class Spawner : MonoBehaviour
+{
+    [SerializeField]
+    GameObject elementPrefab;
 	private float radius = 50f;
-	public Element newElement;
+    public Color[] availiableColors;
+	Figure figure;
 
+    private void Awake()
+    {
+		figure = FindObjectOfType<Figure> ();
+		availiableColors = figure.currentColors;
+    }
 
+    public void SpawnElement(int speed)
+    {
+        GameObject tmp = Instantiate(elementPrefab, GeneratePoint(), Quaternion.identity);
+        
+        Element element = tmp.GetComponent<Element>();
+        element.speed = speed;
+        element.mySpriteRenderer.color = ChooseColor();
+    }
 
-	void SpawnElement()
-	{
-		
-		Instantiate(newElement,generatePoint(),Quaternion.Euler(0,0,0));
-		newElement.transform.position = generatePoint ();
-	}
-
-	Vector3 generatePoint()
+	Vector3 GeneratePoint()
 	{
 		Vector3 newPoint = new Vector3 (0, 0, 0);;
 		int degree = UnityEngine.Random.Range (0, 360);
@@ -30,7 +36,8 @@ public class Spawner : MonoBehaviour {
 
 	Color ChooseColor()
 	{
-		return Color.black;
+        int rnd = Random.Range(0, availiableColors.Length);
+        return availiableColors[rnd];
 	}
 
 }
