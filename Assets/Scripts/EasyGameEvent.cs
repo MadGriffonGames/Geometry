@@ -2,16 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EasyGameEvent : IGameEvent
+public class EasyGameEvent : MonoBehaviour, IGameEvent
 {
+    GameController gameController;
+
     const int SPEED_RANGE_BEGIN = 1;
-    const int SPEED_RANGE_END = 6;
+    int SPEED_RANGE_END;
 
     const int ELEMENTS_RANGE_BEGIN = 1;
     const int ELEMENTS_RANGE_END = 6;
 
+    int elementSpeed;
+    int elemetsCount;
+
+    private void Awake()
+    {
+        SPEED_RANGE_END = gameController.difficultType;
+    }
+
     public void Execute()
     {
-
+        elemetsCount = 1;
+        elementSpeed = Random.Range(SPEED_RANGE_BEGIN, SPEED_RANGE_END + 1);
+        
     }
+
+    
 }

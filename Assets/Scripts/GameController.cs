@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour {
 
 	public int score;
 
-	private int difficultType;
+	public int difficultType;
 	private int nextDiffScore;
 
 
