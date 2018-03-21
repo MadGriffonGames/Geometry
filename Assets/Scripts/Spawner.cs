@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField]
     GameObject elementPrefab;
-	private float radius = 50f;
+	private float radius = 7f;
     public Color[] availiableColors;
 	Figure figure;
 
@@ -27,10 +27,11 @@ public class Spawner : MonoBehaviour
 
 	Vector3 GeneratePoint()
 	{
-		Vector3 newPoint = new Vector3 (0, 0, 0);;
+		Vector3 newPoint = new Vector3 (0, 0, 0);
 		int degree = UnityEngine.Random.Range (0, 360);
 		newPoint.x = figure.transform.position.x + radius * Mathf.Cos(degree);
-		newPoint.y = figure.transform.position.y + radius * Mathf.Cos(degree);
+		newPoint.y = figure.transform.position.y + radius * Mathf.Sin(degree);
+
 		return newPoint;
 	}
 
