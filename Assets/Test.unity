@@ -275,6 +275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elementPrefab: {fileID: 1321289824097210, guid: 9ab618641d2584f4aa2286c32180c496,
     type: 2}
+  availiableColors: []
 --- !u!1 &435738455
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,7 +516,10 @@ MonoBehaviour:
   - {fileID: 1467696887}
   - {fileID: 43431315}
   - {fileID: 435738458}
-  currentColors: []
+  currentColors:
+  - {r: 0, g: 0.54509807, b: 0.909804, a: 1}
+  - {r: 1, g: 0.86274517, b: 0, a: 1}
+  - {r: 0.5372549, g: 0.050980397, b: 0.6039216, a: 1}
   edgeCount: 3
 --- !u!212 &1097785143
 SpriteRenderer:
