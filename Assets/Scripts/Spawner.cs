@@ -2,26 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour {
-
+public class Spawner : MonoBehaviour
+{
+    [SerializeField]
+    GameObject elementPrefab;
 	private float radius = 50f;
-	public Element newElement;
+    public Color[] availiableColors;
 
-	void SpawnElement()
-	{
-		
-		Instantiate(newElement,generatePoint(),Quaternion.Euler(0,0,0));
-		newElement.transform.position = generatePoint ();
-	}
+    private void Awake()
+    {
+        availiableColors = FindObjectOfType<Figure>().currentColors;
+    }
 
-	Vector3 generatePoint()
+    public void SpawnElement(int speed)
+    {
+        GameObject tmp = Instantiate(elementPrefab, GeneratePoint(), Quaternion.identity);
+        
+        Element element = tmp.GetComponent<Element>();
+        element.speed = speed;
+        element.mySpriteRenderer.color = ChooseColor();
+    }
+
+    Vector3 GeneratePoint()
 	{
 		return new Vector3 (0, 0, 0);
 	}
 
 	Color ChooseColor()
 	{
-		return Color.black;
+        int rnd = Random.Range(0, availiableColors.Length);
+        return availiableColors[rnd];
 	}
 
 }

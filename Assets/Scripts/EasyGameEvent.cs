@@ -5,6 +5,8 @@ using UnityEngine;
 public class EasyGameEvent : MonoBehaviour, IGameEvent
 {
     GameController gameController;
+    [SerializeField]
+    Spawner spawner = FindObjectOfType<Spawner>();
 
     const int SPEED_RANGE_BEGIN = 1;
     int SPEED_RANGE_END;
@@ -17,14 +19,14 @@ public class EasyGameEvent : MonoBehaviour, IGameEvent
 
     private void Awake()
     {
-        SPEED_RANGE_END = gameController.difficultType;
+        //SPEED_RANGE_END = gameController.difficultType;
     }
 
     public void Execute()
     {
         elemetsCount = 1;
         elementSpeed = Random.Range(SPEED_RANGE_BEGIN, SPEED_RANGE_END + 1);
-        
+        spawner.SpawnElement(elementSpeed);
     }
 
     
