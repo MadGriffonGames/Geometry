@@ -13,6 +13,8 @@ public class Figure : MonoBehaviour
     SideCollider[] sides;
     [SerializeField]
     public Color[] currentColors;
+    [SerializeField]
+    public Sprite[] currentDots;
 
     public int edgeCount = 3;
     bool isRotate = false;
@@ -22,11 +24,7 @@ public class Figure : MonoBehaviour
 
     private void Awake()
     {
-        //currentColors = new Color[sides.Length];
-        //for (int i = 0; i < sides.Length; i++)
-        //{
-        //    currentColors[i] = sides[i].ColorId;
-        //}
+
     }
 
     private void FixedUpdate()

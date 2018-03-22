@@ -7,11 +7,15 @@ public class Element : MonoBehaviour
 	public float speed;
     [SerializeField]
     public SpriteRenderer mySpriteRenderer;
+    [SerializeField]
+    public ParticleSystem tail;
+    public Color colorId;
     Vector3 targetPoint;
 
     private void Awake()
     {
         targetPoint = new Vector3(-10, 0.3f, 0);
+        Physics2D.Raycast(targetPoint, transform.position + targetPoint);
 		//GetComponentInChildren<ParticleSystem> ().main.startColor = mySpriteRenderer.color;
     }
 		
@@ -23,12 +27,5 @@ public class Element : MonoBehaviour
     void Move()
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPoint, speed * Time.deltaTime);
-		CalculateRotation ();
     }
-
-	void CalculateRotation()
-	{
-		transform.rotation = Quaternion.Euler(new Vector3 (0, 0, Mathf.Asin ((transform.position.x - targetPoint.x) / 7f)*Mathf.Rad2Deg));
-		Debug.Log(Mathf.Asin((transform.position.x - targetPoint.x) / 7f)*Mathf.Rad2Deg);
-	}
 }

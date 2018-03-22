@@ -10,7 +10,7 @@ public class SideCollider : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
 		
-		if (other.gameObject.GetComponent<SpriteRenderer> ().color == ColorId) 
+		if (other.gameObject.GetComponent<Element>().colorId == ColorId) 
 		{
 			GameController.Instance.score += 1;
 			GameController.Instance.CheckGameParametres ();

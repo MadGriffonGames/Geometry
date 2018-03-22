@@ -8,21 +8,33 @@ public class Spawner : MonoBehaviour
     GameObject elementPrefab;
 	private float radius = 7f;
     public Color[] availiableColors;
-	Figure figure;
+    public Sprite[] availiableDots;
+    
+    Figure figure;
 
     private void Awake()
     {
 		figure = FindObjectOfType<Figure> ();
 		availiableColors = figure.currentColors;
+        availiableDots = figure.currentDots;
     }
 
     public void SpawnElement(int speed)
     {
-        GameObject tmp = Instantiate(elementPrefab, GeneratePoint(), Quaternion.identity);
+        GameObject tmpObj = Instantiate(elementPrefab, GeneratePoint(), Quaternion.identity);
         
-        Element element = tmp.GetComponent<Element>();
+        Element element = tmpObj.GetComponent<Element>();
         element.speed = speed;
-        element.mySpriteRenderer.color = ChooseColor();
+        SetElementVisual(element);
+    }
+
+    void SetElementVisual(Element element)
+    {
+        int rnd = Random.Range(0, availiableColors.Length);
+
+        element.colorId = ChooseColor(rnd);
+        SetTail(element, rnd);
+        element.mySpriteRenderer.sprite = ChooseSprite(rnd);
     }
 
 	Vector3 GeneratePoint()
@@ -35,10 +47,22 @@ public class Spawner : MonoBehaviour
 		return newPoint;
 	}
 
-	Color ChooseColor()
-	{
-        int rnd = Random.Range(0, availiableColors.Length);
+    void SetTail(Element element, int rnd)
+    {
+        element.tail.Stop();
+        var psmain = element.tail.main;
+        psmain.startColor = ChooseColor(rnd);
+        element.tail.Play();
+    }
+
+    Color ChooseColor(int rnd)
+    {
         return availiableColors[rnd];
-	}
+    }
+
+    Sprite ChooseSprite(int rnd)
+    {
+        return availiableDots[rnd];
+    }
 
 }
