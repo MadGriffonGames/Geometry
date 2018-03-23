@@ -137,6 +137,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   mySpriteRenderer: {fileID: 212845295961378864}
+  tail: {fileID: 198007435234950104}
+  colorId: {r: 0, g: 0, b: 0, a: 0}
 --- !u!198 &198007435234950104
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -204,7 +206,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 15
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -349,7 +351,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.6
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -855,7 +857,7 @@ ParticleSystem:
           outSlope: 0
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.555542
+          time: 0.6720886
           value: 0
           inSlope: 1
           outSlope: 1
