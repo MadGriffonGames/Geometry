@@ -14,6 +14,7 @@ public class Spawner : MonoBehaviour
 
     private void Awake()
     {
+		PoolManager.Instance.CreatePool (elementPrefab, 10);
 		figure = FindObjectOfType<Figure> ();
 		availiableColors = figure.currentColors;
         availiableDots = figure.currentDots;
@@ -21,12 +22,25 @@ public class Spawner : MonoBehaviour
 
     public void SpawnElement(int speed)
     {
-        GameObject tmpObj = Instantiate(elementPrefab, GeneratePoint(), Quaternion.identity);
-        
+        //GameObject tmpObj = Instantiate(elementPrefab, GeneratePoint(), Quaternion.identity);
+		GameObject tmpObj = PoolManager.Instance.ReuseElement(elementPrefab, GeneratePoint(), Quaternion.identity);
+
         Element element = tmpObj.GetComponent<Element>();
         element.speed = speed;
         SetElementVisual(element);
     }
+
+	public void SpawnElement(int speed, float ampletude, float frequency)
+	{
+		GameObject tmpObj = PoolManager.Instance.ReuseElement(elementPrefab, GeneratePoint(), Quaternion.identity);
+
+		Element element = tmpObj.GetComponent<Element>();
+		element.speed = speed;
+		element.ampletude = ampletude;
+		element.frequency = frequency;
+
+		SetElementVisual(element);
+	}
 
     void SetElementVisual(Element element)
     {
