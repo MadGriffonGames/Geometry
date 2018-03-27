@@ -22,6 +22,10 @@ public class Figure : MonoBehaviour
     float sum = 0;
     float z;
 
+
+
+
+
     private void Awake()
     {
 

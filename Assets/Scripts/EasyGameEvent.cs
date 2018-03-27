@@ -26,7 +26,8 @@ public class EasyGameEvent : MonoBehaviour, IGameEvent
     {
         elemetsCount = 1;
         elementSpeed = Random.Range(SPEED_RANGE_BEGIN, SPEED_RANGE_END + 1);
-        spawner.SpawnElement(elementSpeed);
+        //spawner.SpawnElement(elementSpeed);
+		spawner.SpawnElement(elementSpeed, 3, 3);
     }
 
     

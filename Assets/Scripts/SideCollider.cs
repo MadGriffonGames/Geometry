@@ -19,6 +19,6 @@ public class SideCollider : MonoBehaviour
 		{
 			GameController.Instance.GameOver ();
 		}
-		Destroy(other.gameObject);
+		other.gameObject.SetActive (false);
     }
 }
