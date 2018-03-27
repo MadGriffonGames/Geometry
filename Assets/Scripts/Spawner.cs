@@ -28,13 +28,13 @@ public class Spawner : MonoBehaviour
         switch (moveType)
         {
             case MoveTypes.Linear:
-                SpawnSpiralElement(GenerateSpeed());
+				SpawnAnotherSpiralElement(GenerateSpeed());
                 break;
             case MoveTypes.Sinus:
-                SpawnSpiralElement(GenerateSpeed());
+				SpawnAnotherSpiralElement(GenerateSpeed());
                 break;
             case MoveTypes.Spiral:
-                SpawnSpiralElement(GenerateSpeed());
+				SpawnAnotherSpiralElement(GenerateSpeed());
                 break;
             default:
                 break;
@@ -55,16 +55,50 @@ public class Spawner : MonoBehaviour
 	public void SpawnSinusElement(float speed, float ampletude, float frequency)
 	{
         Element element = SpawnLinearElement(speed);
-        element.moveType = element.SinusMove;
+        element.moveType = element.AnotherSinusMove;
         element.ampletude = ampletude;
         element.frequency = frequency;
     }
+
+	public void SpawnAnotherSinusElement(float speed)
+	{
+		GameObject tmpObj = PoolManager.Instance.ReuseElement (elementPrefab, GeneratePoint(), Quaternion.identity);
+		float tmpX;
+		float sign = 1f;
+
+		Element element = tmpObj.GetComponentInChildren<Element>();
+		Vector3 direction = (element.targetPoint - tmpObj.transform.position).normalized;
+		if (tmpObj.transform.position.x < -10f) {
+			tmpX = 1f;
+		} else {
+			tmpX = -1f;
+			speed *= -1f;
+		}
+
+		if ((tmpObj.transform.position.y <= 0.3f && tmpObj.transform.position.x >= -10f) || (tmpObj.transform.position.y >= 0.3f && tmpObj.transform.position.x <= -10f)) {
+			sign = -1f;
+		}
+		
+		tmpObj.transform.rotation = Quaternion.Euler(0, 0, sign * Vector3.Angle(new Vector3(tmpX, 0, 0), direction));
+		
+		element.speed = speed/2f;
+		SetElementVisual (element);
+		element.moveType = element.AnotherSinusMove;
+	}
 
     public void SpawnSpiralElement(float speed)
     {
         Element element = SpawnLinearElement(speed);
         element.moveType = element.SpiralMove;
     }
+
+	public void SpawnAnotherSpiralElement(float speed)
+	{
+		GameObject tmpObj = PoolManager.Instance.ReuseElement (elementPrefab, GeneratePoint(), Quaternion.identity);
+		Element element = tmpObj.GetComponentInChildren<Element>();
+		SetElementVisual (element);
+		element.moveType = element.SpiralMove;
+	}
 
     void SetElementVisual(Element element)
     {

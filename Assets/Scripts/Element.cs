@@ -10,6 +10,9 @@ public class Element : MonoBehaviour
 	public float ampletude;
 	public float frequency;
     public float angle;
+	public float curX;
+	public float curY;
+	public float curZ;
     public Color colorId;
 	public Vector3 startPosition;
 	public Vector3 direction;
@@ -19,7 +22,13 @@ public class Element : MonoBehaviour
     public MoveType moveType;
 	Rigidbody2D rb;
 	GameObject targetObject;
-    Vector3 targetPoint;
+    public Vector3 targetPoint;
+
+	float circleSpeed = 1;
+	float forwardSpeed = -1;
+	float circleSize = 1;
+	float circleGrowSpeed;
+
 
     private void Awake()
 	{
@@ -63,9 +72,25 @@ public class Element : MonoBehaviour
     public void SpiralMove()
 	{
 		angle -= 0.0025f;
-		transform.LookAt (targetObject.transform);
-		transform.Translate (transform.forward * Time.deltaTime * speed);
-		transform.RotateAround(targetObject.transform.position, Vector3.forward ,angle);
+		//transform.LookAt (targetObject.transform);
+		//transform.Translate (transform.forward * Time.deltaTime * speed);
+		if (transform.position.x <= -10f) {
+			curX = 0.01f;
+		} else
+			curX = -0.01f;
+		transform.position += new Vector3 (curX, 0);
+		transform.RotateAround(targetObject.transform.position, Vector3.forward ,Time.deltaTime * 20f);
         transform.rotation = new Quaternion(0, 0, 0, 0);
+	}
+
+	public void AnotherSinusMove()
+	{
+		curX = transform.localPosition.x;
+		transform.localPosition = new Vector3 (transform.localPosition.x + speed / 10f, Mathf.Sin(curX) / 3f);
+	}
+
+	public void AnotherSpiralMove()
+	{
+		
 	}
 }
