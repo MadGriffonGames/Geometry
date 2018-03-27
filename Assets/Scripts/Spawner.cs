@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField]
-    GameObject elementPrefab;
-	private float radius = 7f;
-    public Color[] availiableColors;
-    public Sprite[] availiableDots;
-    
+    [SerializeField] private GameObject elementPrefab;
+    private float radius = 7f;
+    public float maxSpeed;
+    public float maxAmplitude;
+    public float maxFrequency;
+    [HideInInspector] public enum MoveTypes { Linear = 0, Sinus = 1, Spiral = 2 };
+    [HideInInspector] public int elementSpeed;
+    [HideInInspector] public Color[] availiableColors;
+    [HideInInspector] public Sprite[] availiableDots;
     Figure figure;
 
     private void Awake()
@@ -20,27 +23,48 @@ public class Spawner : MonoBehaviour
         availiableDots = figure.currentDots;
     }
 
-    public void SpawnElement(int speed)
+    public void SpawnElement(MoveTypes moveType)
     {
-        //GameObject tmpObj = Instantiate(elementPrefab, GeneratePoint(), Quaternion.identity);
-		GameObject tmpObj = PoolManager.Instance.ReuseElement(elementPrefab, GeneratePoint(), Quaternion.identity);
+        switch (moveType)
+        {
+            case MoveTypes.Linear:
+                SpawnSpiralElement(GenerateSpeed());
+                break;
+            case MoveTypes.Sinus:
+                SpawnSpiralElement(GenerateSpeed());
+                break;
+            case MoveTypes.Spiral:
+                SpawnSpiralElement(GenerateSpeed());
+                break;
+            default:
+                break;
+        }
+    }
+
+    public Element SpawnLinearElement(float speed)
+    {
+        GameObject tmpObj = PoolManager.Instance.ReuseElement(elementPrefab, GeneratePoint(), Quaternion.identity);
 
         Element element = tmpObj.GetComponent<Element>();
         element.speed = speed;
+        element.moveType = element.LinearMove;
         SetElementVisual(element);
+        return element;
     }
 
-	public void SpawnElement(int speed, float ampletude, float frequency)
+	public void SpawnSinusElement(float speed, float ampletude, float frequency)
 	{
-		GameObject tmpObj = PoolManager.Instance.ReuseElement(elementPrefab, GeneratePoint(), Quaternion.identity);
+        Element element = SpawnLinearElement(speed);
+        element.moveType = element.SinusMove;
+        element.ampletude = ampletude;
+        element.frequency = frequency;
+    }
 
-		Element element = tmpObj.GetComponent<Element>();
-		element.speed = speed;
-		element.ampletude = ampletude;
-		element.frequency = frequency;
-
-		SetElementVisual(element);
-	}
+    public void SpawnSpiralElement(float speed)
+    {
+        Element element = SpawnLinearElement(speed);
+        element.moveType = element.SpiralMove;
+    }
 
     void SetElementVisual(Element element)
     {
@@ -60,6 +84,21 @@ public class Spawner : MonoBehaviour
 
 		return newPoint;
 	}
+
+    float GenerateSpeed()
+    {
+        return Random.Range(1f, maxSpeed + 1f);
+    }
+
+    float GenerateAmplitude()
+    {
+        return Random.Range(1f, maxAmplitude + 1f);
+    }
+
+    float GenerateFrequency()
+    {
+        return Random.Range(1f, maxFrequency + 1f);
+    }
 
     void SetTail(Element element, int rnd)
     {
