@@ -32,7 +32,7 @@ public class Element : MonoBehaviour
 
 	void OnEnable()
 	{
-		targetObject = GameObject.Find ("Figure");
+		targetObject = GameObject.FindGameObjectWithTag("Figure");
 		startPosition = transform.position;
 		direction = (targetPoint - startPosition).normalized;
 		ort = Vector3.Cross(direction, Vector3.forward).normalized;
