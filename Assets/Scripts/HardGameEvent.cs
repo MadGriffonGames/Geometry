@@ -26,7 +26,7 @@ public class HardGameEvent : MonoBehaviour, IGameEvent {
 	{
 		elemetsCount = 3;
 		elementSpeed = Random.Range(SPEED_RANGE_BEGIN, SPEED_RANGE_END + 1);
-		spawner.SpawnElement(elementSpeed);
+		spawner.SpawnLinearElement(elementSpeed);
 		Debug.Log ("hard");
 	}
 }

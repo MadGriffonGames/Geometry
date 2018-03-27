@@ -4,25 +4,22 @@ using UnityEngine;
 
 public class Element : MonoBehaviour
 {
-	public float speed;
+    [SerializeField] public SpriteRenderer mySpriteRenderer;
+    [SerializeField] public ParticleSystem tail;
+    public float speed;
 	public float ampletude;
 	public float frequency;
-    [SerializeField]
-    public SpriteRenderer mySpriteRenderer;
-    [SerializeField]
-    public ParticleSystem tail;
+    public float angle;
     public Color colorId;
 	public Vector3 startPosition;
 	public Vector3 direction;
 	public Vector3 ort;
 	public float startTime;
-	float angle;
+    public delegate void MoveType();
+    public MoveType moveType;
 	Rigidbody2D rb;
 	GameObject targetObject;
-
     Vector3 targetPoint;
-
-
 
     private void Awake()
 	{
@@ -31,16 +28,14 @@ public class Element : MonoBehaviour
 		rb = this.GetComponent<Rigidbody2D> ();
 		targetPoint = new Vector3(-10, 0.3f, 0);
         Physics2D.Raycast(targetPoint, transform.position + targetPoint);
-		//GetComponentInChildren<ParticleSystem> ().main.startColor = mySpriteRenderer.color;
     }
 
 	void OnEnable()
 	{
-		targetObject = GameObject.FindGameObjectWithTag ("Figure");
+		targetObject = GameObject.Find ("Figure");
 		startPosition = transform.position;
 		direction = (targetPoint - startPosition).normalized;
 		ort = Vector3.Cross(direction, Vector3.forward).normalized;
-
 	}
 
 	void OnDisable()
@@ -51,25 +46,26 @@ public class Element : MonoBehaviour
 		
     private void FixedUpdate()
     {
-		SpiralMove();
+        moveType.Invoke();
     }
 
-    void Move()
+    public void LinearMove()
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPoint, speed * Time.deltaTime);
     }
 
-	void SinusMove()
+    public void SinusMove()
 	{
 		float t = Time.time - startTime;
 		rb.velocity = direction * speed + ort * ampletude * Mathf.Cos (frequency * t);
 	}
 
-	void SpiralMove()
+    public void SpiralMove()
 	{
 		angle -= 0.0025f;
 		transform.LookAt (targetObject.transform);
 		transform.Translate (transform.forward * Time.deltaTime * speed);
 		transform.RotateAround(targetObject.transform.position, Vector3.forward ,angle);
+        transform.rotation = new Quaternion(0, 0, 0, 0);
 	}
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Figure : MonoBehaviour
 {
     const int DEGREES = 360;
-    const float MULTIPLIER = 6f;
+    const float MULTIPLIER = 10f;
 
     [SerializeField]
     GameObject figure;
@@ -22,23 +22,12 @@ public class Figure : MonoBehaviour
     float sum = 0;
     float z;
 
-
-
-
-
-    private void Awake()
-    {
-
-    }
-
     private void FixedUpdate()
     {
         
         if (isRotate)
         {
-            z += (dir * MULTIPLIER);
-            transform.rotation = Quaternion.Euler(0, 0, z);
-            sum += dir * MULTIPLIER;
+            
             if (Mathf.Abs(sum) >= DEGREES / edgeCount)
             {
                 sum = 0;

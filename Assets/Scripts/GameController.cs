@@ -40,7 +40,7 @@ public class GameController : MonoBehaviour
 	{
 		difficultType = 0; // начинаем с нуля, чтобы расширять рендж ивентов с нуля
 		CalculateNextDifficultyScore ();
-        delay = Random.Range(1.5f, 2.5f);
+        delay = Random.Range(4f, 6f);
         isTimerTick = true;
     }
 
