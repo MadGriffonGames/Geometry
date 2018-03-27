@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-		events = new IGameEvent[]{new EasyGameEvent(),new MediumGameEvent(), new HardGameEvent()};
+		events = new IGameEvent[]{new EasyGameEvent(), new MediumGameEvent(), new HardGameEvent()};
 		currentEvent = GetAllowableEvent ();
     }
 

@@ -27,6 +27,5 @@ public class MediumGameEvent : MonoBehaviour, IGameEvent{
 		elemetsCount = 2;
 		elementSpeed = Random.Range(SPEED_RANGE_BEGIN, SPEED_RANGE_END + 1);
 		spawner.SpawnLinearElement(elementSpeed);
-		Debug.Log ("medium");
 	}
 }
