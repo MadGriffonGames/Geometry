@@ -27,7 +27,9 @@ public class Figure : MonoBehaviour
         
         if (isRotate)
         {
-            
+            z += (dir * MULTIPLIER);
+            transform.rotation = Quaternion.Euler(0, 0, z);
+            sum += dir * MULTIPLIER;
             if (Mathf.Abs(sum) >= DEGREES / edgeCount)
             {
                 sum = 0;
